@@ -1,4 +1,4 @@
-# covid19tracker
+# Covid Tracker
 
 Corona Virus Cases Stats 
 
