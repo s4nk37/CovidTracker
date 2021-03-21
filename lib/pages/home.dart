@@ -1,11 +1,13 @@
 import 'dart:convert';
-import 'package:covid19tracker/Services/widgets.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'package:covid19tracker/pages/loader.dart';
 import 'package:covid19tracker/theme.dart';
 import 'package:flutter/services.dart';
+
+import '../services/widgets.dart';
 
 Future<WorldData> fetchWorldData() async {
   final response = await http.get('https://corona.lmao.ninja/v2/all');
@@ -29,14 +31,14 @@ class WorldData {
 
   WorldData(
       {this.cases,
-        this.deaths,
-        this.recovered,
-        this.active,
-        this.critical,
-        this.todayCases,
-        this.tests,
-        this.affectedCountries,
-        this.todayDeaths});
+      this.deaths,
+      this.recovered,
+      this.active,
+      this.critical,
+      this.todayCases,
+      this.tests,
+      this.affectedCountries,
+      this.todayDeaths});
 
   factory WorldData.fromJson(Map<String, dynamic> json) {
     return WorldData(
@@ -69,7 +71,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Theme.of(context).scaffoldBackgroundColor, // status bar color
+      statusBarColor:
+          Theme.of(context).scaffoldBackgroundColor, // status bar color
     ));
     SizeConfig().init(context);
     ThemeData theme = Theme.of(context);
@@ -107,17 +110,18 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   Text(
                                     'Corona Virus Cases in ',
-                                    style: Theme.of(context).textTheme.headline1,
+                                    style:
+                                        Theme.of(context).textTheme.headline1,
                                   ),
                                   GestureDetector(
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal:
-                                            SizeConfig.safeBlockHorizontal *
-                                                2.5,
+                                                SizeConfig.safeBlockHorizontal *
+                                                    2.5,
                                             vertical:
-                                            SizeConfig.safeBlockVertical *
-                                                0.5),
+                                                SizeConfig.safeBlockVertical *
+                                                    0.5),
                                         decoration: BoxDecoration(
                                           color: Theme.of(context).buttonColor,
                                           borderRadius: BorderRadius.all(
@@ -130,7 +134,7 @@ class _HomeState extends State<Home> {
                                               style: TextStyle(
                                                 color: darkGrey,
                                                 fontSize: SizeConfig
-                                                    .safeBlockHorizontal *
+                                                        .safeBlockHorizontal *
                                                     5,
                                               ),
                                             ),
@@ -156,11 +160,13 @@ class _HomeState extends State<Home> {
                                 children: <Widget>[
                                   Text(
                                     '${snapshot.data.cases} ',
-                                    style: Theme.of(context).textTheme.headline5,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
                                   ),
                                   Text(
                                     '+ ${snapshot.data.todayCases}',
-                                    style: Theme.of(context).textTheme.headline3,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
                                   ),
                                 ],
                               ),
@@ -171,7 +177,7 @@ class _HomeState extends State<Home> {
                     ),
                     Container(
                       color: Theme.of(context).backgroundColor,
-                      height: SizeConfig.safeBlockVertical*60,
+                      height: SizeConfig.safeBlockVertical * 60,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: SizeConfig.safeBlockHorizontal * 6),
@@ -181,10 +187,28 @@ class _HomeState extends State<Home> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: <Widget>[
-                              TwoCardRow(deaths: snapshot.data.deaths, recovered: snapshot.data.recovered, theme: theme), //Recovered & Deaths Cards
-                              PercentageCard(active: snapshot.data.active, critical: snapshot.data.critical, theme: theme), // Active & Mild Critical Percentage Card
-                              Card2(label: 'CRITICAL', no: snapshot.data.critical, label2: 'NEW DEATHS', no2: snapshot.data.todayDeaths, theme: theme), //Serious New Deaths Card
-                              Card2(label: 'NO OF TESTS', no: snapshot.data.tests, label2: 'COUNTRIES', no2: snapshot.data.affectedCountries, theme: theme), //No of Tests Card & Affected Countries
+                              TwoCardRow(
+                                  deaths: snapshot.data.deaths,
+                                  recovered: snapshot.data.recovered,
+                                  theme: theme), //Recovered & Deaths Cards
+                              PercentageCard(
+                                  active: snapshot.data.active,
+                                  critical: snapshot.data.critical,
+                                  theme:
+                                      theme), // Active & Mild Critical Percentage Card
+                              Card2(
+                                  label: 'CRITICAL',
+                                  no: snapshot.data.critical,
+                                  label2: 'NEW DEATHS',
+                                  no2: snapshot.data.todayDeaths,
+                                  theme: theme), //Serious New Deaths Card
+                              Card2(
+                                  label: 'NO OF TESTS',
+                                  no: snapshot.data.tests,
+                                  label2: 'COUNTRIES',
+                                  no2: snapshot.data.affectedCountries,
+                                  theme:
+                                      theme), //No of Tests Card & Affected Countries
                             ],
                           ),
                         ),
@@ -198,7 +222,9 @@ class _HomeState extends State<Home> {
               return Center(
                 child: Text(
                   'No Internet Connection!',
-                  style: TextStyle(color: primary, fontSize: SizeConfig.safeBlockHorizontal*8),
+                  style: TextStyle(
+                      color: primary,
+                      fontSize: SizeConfig.safeBlockHorizontal * 8),
                 ),
               );
             }
